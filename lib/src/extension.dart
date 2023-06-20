@@ -108,28 +108,9 @@ abstract class ExtensionValue {
           return ProxyCertInfo.fromAsn1(obj as ASN1Sequence);
       }
     }
-
-    return UnknownExtensionValue.fromAsn1(obj as ASN1Sequence);
+    throw UnimplementedError(
+        'Cannot handle $id (${id.parent} ${id.nodes.last})');
   }
-}
-
-class UnknownExtensionValue extends ExtensionValue {
-  List<Uint8List> values;
-  UnknownExtensionValue(this.values);
-  factory UnknownExtensionValue.fromAsn1(ASN1Sequence sequence) {
-    List<Uint8List> v = List.empty(growable: true);
-    for (ASN1Object o in sequence.elements) {
-      v.add(o.encodedBytes);
-    }
-    return UnknownExtensionValue(v);
-  }
-  @override
-  String toString() => values
-      .map((e) => e.toString().replaceRange(
-          (e.length > 10 ? e.length : e.toString().length - 1),
-          null,
-          (e.length > 10 ? '...' : ']')))
-      .join(',\n\t\t\t\t');
 }
 
 /// An authority key identifier extension value.
