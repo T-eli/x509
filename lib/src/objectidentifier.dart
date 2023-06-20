@@ -65,19 +65,13 @@ class ObjectIdentifier {
       if (tree is Map) return tree[null];
       return tree;
     } catch (e) {
-      throw UnknownOIDNameError(
-          'Unable to get name of ObjectIdentifier with nodes $nodes');
+      // the getter no longer throws and results in unfinished parsing in case of unknown/ unimplemented OID.
+      return "Unknown OID: ${nodes.join('.')}";
     }
   }
 
   @override
-  String toString() {
-    try {
-      return name;
-    } on UnknownOIDNameError {
-      return nodes.join('.');
-    }
-  }
+  String toString() => name;
 
   static const _tree = {
     0: {
