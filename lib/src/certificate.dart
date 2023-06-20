@@ -22,6 +22,12 @@ class X509Certificate implements Certificate {
   const X509Certificate(
       this.tbsCertificate, this.signatureAlgorithm, this.signatureValue);
 
+  /// Creates a certificate from an [Uint8List].
+  factory X509Certificate.fromBytes(Uint8List bytes) {
+    final sequence = ASN1Sequence.fromBytes(bytes);
+    return X509Certificate.fromAsn1(sequence);
+  }
+
   /// Creates a certificate from an [ASN1Sequence].
   ///
   /// The ASN.1 definition is:
