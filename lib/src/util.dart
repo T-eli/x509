@@ -267,7 +267,7 @@ dynamic toDart(ASN1Object obj) {
   switch (obj.tag & 0xe0) {
     case 0xa0: // 10 1 00000 => Class is Context-Specific, P/C is Constructed and Tag Number is 0
       return toDart(ASN1Parser(obj.valueBytes()).nextObject());
-    case 0x80: // 10 0 00110 => Class is Context-Specific, P/C is Primitive and Tag Number is 6
+    case 0x80: // 10 0 00110 => Class is Context-Specific, P/C is Primitive and Tag Number is 0
       return utf8.decode(obj.valueBytes());
   }
   throw ArgumentError(
